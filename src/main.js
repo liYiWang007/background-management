@@ -7,6 +7,7 @@ import AboutUs from './components/AboutUs'
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 
+// 设置路由
 const router=new VueRouter({
   mode:'history',
   base:__dirname,
