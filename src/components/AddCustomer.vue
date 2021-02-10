@@ -96,10 +96,10 @@ export default {
         };
         this.$http
           .post("http://localhost:3111/users", newCustomer)
-          .then((response) => {
+          .then(() => {
             // 检查数据是否post成功
-            console.log(response);
-            this.$router.push({ path: "/", query: {postSuccess:"用户信息添加成功！"}}); // 只是声明上去的postSuccesst属性,要赋值
+            // console.log(response);
+            this.$router.push({ path: "/", query: {postSuccess:"用户信息添加成功！"}}); // 只是自定义的postSuccesst属性,要赋值
           });
       }
       e.preventDefault(); //让浏览器不要执行事件关联的默认动作，比如在提交就会阻止别的提交事件

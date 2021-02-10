@@ -1,6 +1,9 @@
 <template>
   <div class="home container">
-    <post-success v-if="postSuccess" :message="postSuccess"></post-success>
+    <post-success-msg
+      v-if="postSuccess"
+      :message="postSuccess"
+    ></post-success-msg>
     <h1 class="page-header">用户管理系统</h1>
     <table class="table table-striped">
       <thead>
@@ -10,11 +13,11 @@
           <th>邮箱</th>
           <th></th>
         </tr>
-        <tr v-for="curstomer in curstomers" :key="curstomer.id">
-          <td>{{ curstomer.name }}</td>
-          <td>{{ curstomer.phone }}</td>
-          <td>{{ curstomer.email }}</td>
-          <td>{{ curstomer.website }}</td>
+        <tr v-for="customer in customers" :key="customer.id">
+          <td>{{ customer.name }}</td>
+          <td>{{ customer.phone }}</td>
+          <td>{{ customer.email }}</td>
+          <td><router-link class="btn btn-default" :to="`/detail/${customer.id}`">详情</router-link></td>
         </tr>
       </thead>
     </table>
@@ -22,34 +25,31 @@
 </template>
 
 <script>
-import PostSuccess from "./PostSuccess.vue";
+import PostSuccessMsg from "./PostSuccessMsg";
 export default {
-  components: { PostSuccess },
+  components: { PostSuccessMsg },
   name: "Home",
   data() {
     return {
-      curstomers: [],
-      postSuccess: "",
+      customers: [],
+      postSuccess: ""
     };
   },
-  created() {
-    if (this.$router.query.postSuccess) {
-      this.postSuccess = this.$router.query.postSuccess;
-    }
-    this.fecthCurstomers();
-  },
-  updated() {
-    this.fecthCurstomers();
-  },
   methods: {
-    fecthCurstomers() {
+    fecthCustomers() {
       this.$http.get("http://localhost:3111/users").then((response) => {
-        console.log(response.body);
-        this.curstomers = response.body;
+        this.customers = response.body;
       });
     },
   },
+  created() {
+      if (this.$route.query.postSuccess) {
+        this.postSuccess = this.$route.query.postSuccess;
+      }
+      this.fecthCustomers();
+  },
+  updated() {
+    this.fecthCustomers()
+  },
 };
 </script>
-<style scoped>
-</style>

@@ -5,6 +5,8 @@ import VueResource from 'vue-resource'
 import Home from './components/Home'
 import AboutUs from './components/AboutUs'
 import AddCustomer from './components/AddCustomer'
+import CustomerDetails from './components/CustomerDetails'
+import EditCustomer from './components/EditCustomer'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -18,6 +20,8 @@ const router=new VueRouter({
     {path:'/',component:Home},
     {path:'/aboutUs',component:AboutUs},
     {path:'/addCustomer',component:AddCustomer},
+    {path:'/edit/:id',component:EditCustomer},
+    {path:'/detail/:id',component:CustomerDetails},
   ]
 })
 
