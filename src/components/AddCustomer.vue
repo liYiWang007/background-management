@@ -1,5 +1,6 @@
 <template>
   <div class="add-curstomer container">
+    <post-success-msg :message="`${postSuccess}不能为空`" v-if="postSuccess"></post-success-msg>
     <h1 class="page-header">添加用户</h1>
     <form @submit="addCustomer">
       <h4>用户信息</h4>
@@ -73,17 +74,20 @@
 </template>
 
 <script>
+import PostSuccessMsg from './PostSuccessMsg.vue';
 export default {
+  components: { PostSuccessMsg },
   name: "AddCustomer",
   data() {
     return {
-      customer: {}
+      customer: {},
+      postSuccess:''
     };
   },
   methods: {
     addCustomer(e) {
       if (!this.customer.name || !this.customer.phone || !this.customer.email) {
-        alert("请添加漏填的信息");
+        this.postSuccess='相关内容'
       } else {
         let newCustomer = {
           name: this.customer.name,
