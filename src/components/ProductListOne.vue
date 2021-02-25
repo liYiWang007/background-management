@@ -1,23 +1,26 @@
 <template>
-    <div class="product-list-one">
-        <h2>Product List One</h2>
-        <ul>
-            <li v-for="(item, index) in products" :key="index">
-                <span class="name">{{ item.name }}</span>
-                <span class="price"> ${{ item.price }}</span>
-            </li>
-        </ul>
-    </div>
+  <div class="product-list-one">
+    <h2>Product List One</h2>
+    <ul>
+      <li v-for="(item, index) in saleProducts" :key="index">
+        <span class="name">{{ item.name }}</span>
+        <span class="price"> ${{ item.price }}</span>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
 export default {
   name: "ProductListOne",
-  props: ["products"],
-  data() {
-    return {};
-  },
-  methods: {}
+  computed: {
+    products() {
+      return this.$store.state.products;
+    },
+    saleProducts() {
+      return this.$store.getters.saleProducts
+    }
+  }
 };
 </script>
 <style scoped>

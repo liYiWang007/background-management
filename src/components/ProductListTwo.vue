@@ -13,11 +13,14 @@
 <script>
 export default {
   name: "ProductListTwo",
-  props: ["products"],
-  data() {
-    return {};
-  },
-  methods: {}
+  computed: {
+    products(){
+      return this.$store.state.products
+    },
+    saleProducts() {
+      return this.$store.getters.saleProducts
+    }
+  }
 };
 </script>
 <style scoped>
