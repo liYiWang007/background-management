@@ -47,7 +47,7 @@ export default {
       });
     },
     delCustomer(id){
-        console.log(id)
+        // console.log(id)
         this.$http.delete("http://localhost:3111/users/" + id).then(()=> {
             this.$router.push({path:'/',query:{postSuccess:"删除成功！"}})
         })

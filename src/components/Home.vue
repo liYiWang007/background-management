@@ -2,7 +2,7 @@
   <div class="home container">
     <post-success-msg v-if="postSuccess" :message="postSuccess"></post-success-msg>
     <h1 class="page-header">用户管理系统</h1>
-    <input class="model" type="text" placeholder="搜索" v-model="search">
+    <input class="model" type="text" placeholder="搜索" v-model="keyWord">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -11,7 +11,7 @@
           <th>邮箱</th>
           <th></th>
         </tr>
-        <tr v-for="customer in searchTxt(customers,search)" :key="customer.id">
+        <tr v-for="customer in searchTxt(customers,keyWord)" :key="customer.id">
           <td>{{ customer.name }}</td>
           <td>{{ customer.phone }}</td>
           <td>{{ customer.email }}</td>
@@ -33,7 +33,7 @@
       return {
         customers: [],
         postSuccess: "",
-        search: ''
+        keyWord: ''
       };
     },
     methods: {
@@ -44,7 +44,7 @@
       },
       searchTxt(customers, value) {
         return customers.filter((customer) => {
-          return customer.name.match(value)
+          return customer.name.match(value.trim())
         })
       }
     },
