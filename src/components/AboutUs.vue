@@ -1,5 +1,5 @@
 <template>
-<div class="about-us container">about</div>
+<div class="about-us container">练习到此结束</div>
 </template>
 
 <script>

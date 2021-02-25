@@ -36,26 +36,51 @@ export default {
   components: {},
   data() {
     return {
-      customer: "",
+      customer: ""
     };
-  },
-  methods: {
-    fecthCustomers(id) {
-      this.$http.get("http://localhost:3111/users/" + id).then((response) => {
-        // console.log(response.body)
-        this.customer = response.body;
-      });
-    },
-    delCustomer(id){
-        // console.log(id)
-        this.$http.delete("http://localhost:3111/users/" + id).then(()=> {
-            this.$router.push({path:'/',query:{postSuccess:"删除成功！"}})
-        })
-    }
   },
   created() {
     this.fecthCustomers(this.$route.params.id);
   },
+  methods: {
+    fecthCustomers(id) {
+      this.$http.get("http://localhost:3111/users/" + id).then(response => {
+        // console.log(response.body)
+        this.customer = response.body;
+      });
+    },
+    updateCustomer(e) {
+      if (!this.customer.email || !this.customer.name) {
+        alert("请填写必要信息");
+      } else {
+        let updateCustomer = {
+          name: this.customer.name,
+          email: this.customer.email,
+          education: this.customer.education,
+          phone: this.customer.phone,
+          graducationschool: this.customer.graducationschool
+        };
+        this.$http
+          .put(
+            "http://localhost:3111/users/" + this.$route.params.id,
+            updateCustomer
+          )
+          .then(() => {
+            this.router.push({
+              path: "/",
+              query: { postSuccess: "用户信息修改成功！" }
+            });
+          });
+      }
+      e.preventDefault();
+    },
+    delCustomer(id) {
+      // console.log(id)
+      this.$http.delete("http://localhost:3111/users/" + id).then(() => {
+        this.$router.push({ path: "/", query: { postSuccess: "删除成功！" } });
+      });
+    }
+  }
 };
 </script>
 

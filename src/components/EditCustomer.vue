@@ -77,27 +77,51 @@ export default {
   name: "EditCustomer",
   data() {
     return {
-     customer: {}
-    }
+      customer: {},
+    };
   },
   methods: {
     fecthCustomers(id) {
-      this.$http.get('http://localhost:3111/users/' + id)
-      .then(Response=>{
-        console.log(Response.body)
-        name= this.customer.name,
-        phone= this.customer.phone,
-        email= this.customer.email,
-        education= this.customer.education,
-        education= this.customer.education
-        graducationschool= this.customer.graducationschool
-        profession= this.customer.profession
-        profile= this.customer.profile
-      })
-    }
+      this.$http.get("http://localhost:3111/users/" + id).then((response) => {
+        // console.log(response.body)
+        this.customer = response.body;
+      });
+    },
+    updateCustomer(e) {
+      if (!this.customer.name || !this.customer.phone || !this.customer.email) {
+        alert("请添加漏填的信息");
+      } else {
+        let updateCustomer = {
+          name: this.customer.name,
+          phone: this.customer.phone,
+          address: this.customer.address,
+          email: this.customer.email,
+          graducationschool: this.customer.graducationschool,
+          professsion: this.customer.professsion,
+          profile: this.customer.profile,
+        };
+        // 更新数据用put
+        this.$http
+          .put(
+            "http://localhost:3111/users/" + this.$route.params.id,
+            updateCustomer
+          )
+          .then(() => {
+            // 检查数据是否post成功
+            // console.log(response);
+            this.$router.push({
+              path: "/",
+              query: { postSuccess: "用户信息修改成功！" },
+            }); // 只是自定义的postSuccesst属性,要赋值
+          });
+      }
+      e.preventDefault(); //让浏览器不要执行事件关联的默认动作，比如在提交就会阻止别的提交事件
+    },
   },
-  created(){
-    this.fecthCustomers(this.$route.params.id)
-  }
-}
+  created() {
+    this.fecthCustomers(this.$route.params.id);
+  },
+};
 </script>
+<style scoped>
+</style>
