@@ -23,7 +23,7 @@ export default {
     reducePrice() {
       // 通过commit调用store里的方法
       this.$store.commit("reducePrice");
-      // 直接写在vue里会报错，例子如下
+      // 直接写在vue里会报错,因为是vuex，例子如下
       // this.$store.state.products.array.forEach(product => {
       //   product.price -=1
       // });
