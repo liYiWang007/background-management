@@ -5,7 +5,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
-    state: {
+    state: {// 存储数据
         products: [
             { name: "马云", price: 200 },
             { name: "马冬梅", price: 100 },
@@ -13,7 +13,7 @@ export const store = new Vuex.Store({
             { name: "沈腾", price: 10 }
         ]
     },
-    getters: {
+    getters: {// 获取数据
         saleProducts: (state) => {
             // 写在store里引入state里的数据不需要加this.$store
             // const saleProducts = this.$store.state.products.map(product => {
@@ -25,5 +25,14 @@ export const store = new Vuex.Store({
             })
             return saleProducts
         }
+    },
+    mutations: { // 调用方法 通过store commit
+        reducePrice:state=> {//调用getters里的state
+            // 写在store里引入state里的数据不需要加this.$store
+            state.products.forEach(product => {
+                product.price -= 1
+            });
+        }
+
     }
 })
