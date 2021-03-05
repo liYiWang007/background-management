@@ -7,7 +7,7 @@
         <span class="price"> ${{ item.price }}</span>
       </li>
     </ul>
-    <button @click="reducePrice">扣钱</button>
+    <button @click="reducePrice(2)">扣钱</button>
   </div>
 </template>
 
@@ -17,12 +17,26 @@ export default {
   computed: {
     saleProducts() {
       return this.$store.getters.saleProducts;
-    }
+    },
+    ...mapGetters([
+      // "function1",
+      // "function2",
+      "saleProducts"
+    ])
   },
   methods: {
-    reducePrice() {
+    ...mapActions([
+      "reducePrice2"
+    ]),
+    reducePrice(amount) {
       // 通过commit调用store里的方法
-      this.$store.commit("reducePrice");
+
+      // actions方法，异步时用,vuex那数据刷新会跟浏览器内同步（方便调试）
+      this.$store.dispatch("reducePrice2",amount)
+      
+      // mutations方法，不用异步时
+      // this.$store.commit("reducePrice");
+
       // 直接写在vue里会报错,因为是vuex，例子如下
       // this.$store.state.products.array.forEach(product => {
       //   product.price -=1

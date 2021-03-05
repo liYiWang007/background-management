@@ -27,12 +27,26 @@ export const store = new Vuex.Store({
         }
     },
     mutations: { // 调用方法 通过store commit
-        reducePrice:state=> {//调用getters里的state
+        reducePrice: (state, payload) => {//调用getters里的state
             // 写在store里引入state里的数据不需要加this.$store
             state.products.forEach(product => {
-                product.price -= 1
+                product.price -= payload
             });
+            //异步请求，这么写会导致浏览器里的vuex检查无法同步检测
+            // setTimeout(() => {
+            //     // 写在store里引入state里的数据不需要加this.$store
+            //     state.products.forEach(product => {
+            //         product.price -= 1
+            //     });
+            // }, 3000)
         }
 
+    },
+    actions: {
+        reducePrice2: (context, payload) => {
+            setTimeout(() => {
+                context.commit("reducePrice", payload)
+            }, 2000)
+        }
     }
 })
